@@ -1,27 +1,23 @@
-# Student Performance Analysis
+import pandas as pd
+import numpy as np
 
-This project analyzes student performance data to identify strengths and weaknesses in their learning. The goal is to provide actionable insights and recommendations for improvement, based on performance patterns across topics and difficulty levels.
+# Load data
+data = pd.read_csv('student_performance.csv')
 
-## Setup Instructions
+# Inspect schema and summary
+print(data.info())
+print(data.describe())
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/student-performance-analysis.git
-   cd student-performance-analysis
-   ```
+# Handle missing values
+data = data.dropna()
 
-2. Install the required Python libraries:
-   ```
-   pip install -r requirements.txt
-   ```
+# Identify patterns: performance by topic and difficulty
+performance_by_topic = data.groupby('Topic')['Accuracy'].mean()
+performance_by_difficulty = data.groupby('Difficulty')['Accuracy'].mean()
 
-## Approach Description
+# Visualize
+import matplotlib.pyplot as plt
+performance_by_topic.plot(kind='bar')
+plt.title('Performance by Topic')
+plt.show()
 
-The project proceeds with the following steps:
-- Data preprocessing: Cleaning and handling missing values.
-- Analysis: Identifying performance patterns in topics, difficulty levels, and response accuracy.
-- Recommendations: Based on the analysis, recommendations are provided for the student to improve in weak areas.
-
-## Example Usage
-
-Run the analysis script:
